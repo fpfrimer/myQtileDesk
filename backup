@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+# Working directory
+#WDIR=$(pwd)
+WDIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+echo $WDIR
+
+# Create config folder if it not exist
+DIR_CONF="${WDIR}/.config/"
+if [ -d "$DIR_CONF" ]; then
+    # Take action if $DIR_CONF exists. #
+    echo "${DIR_CONF} is present"
+    rm -r ${DIR_CONF}/*
+else
+    echo "Creating ${DIR_CONF}..."
+    mkdir ${WDIR}/.config
+fi
+
+# Backup .bashrc file
+cp ${HOME}/.bashrc ${WDIR}
+
+# Backup scripts
+rm -r ${WDIR}/.scripts/*
+cp -vur ${HOME}/.scripts ${WDIR}
+
+# Backup .xinitrc filr
+cp ${HOME}/.xinitrc ${WDIR}/.xinitrc
+
+# Backup Qtile configs
+cp -vur ${HOME}/.config/qtile ${DIR_CONF}
+
+# Backup ranger configs
+cp -vur ${HOME}/.config/ranger ${DIR_CONF}
+
+# Backup kitty configs
+cp -vur ${HOME}/.config/kitty ${DIR_CONF}
+
+# Backup rofi configs
+cp -vur ${HOME}/.config/rofi ${DIR_CONF}
+
+# Backup wallpapers
+rm -r ${WDIR}/wallpapers/*
+cp -vur ${HOME}/wallpapers ${WDIR}
+
+# Set nitrogen configs
+#cp -r ${HOME}/.config/nitrogen ${DIR_CONF}
+mkdir -p ${DIR_CONF}/nitrogen
+echo "[xin_-1]" > ${DIR_CONF}/nitrogen/bg-saved.cfg
+echo "file=${HOME}/wallpapers/among-trees.jpg" >> ${DIR_CONF}/nitrogen/bg-saved.cfg
+echo "mode=3" >> ${DIR_CONF}/nitrogen/bg-saved.cfg
+echo "bgcolor=#000000" >> ${DIR_CONF}/nitrogen/bg-saved.cfg
+
+# Backup gtk configs
+cp -vur ${HOME}/.config/gtk-2.0 ${DIR_CONF}
+cp -vur ${HOME}/.config/gtk-3.0 ${DIR_CONF}
+
+# Backup picom config
+cp ${HOME}/.config/picom.conf ${DIR_CONF}
