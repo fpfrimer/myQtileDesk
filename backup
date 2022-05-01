@@ -1,59 +1,71 @@
 #!/usr/bin/env bash
 
+
+# Verify is rsync is installed
+if ! command -v rsync &> /dev/null
+then
+    echo "Command rsync could not be found"
+    echo "Please install rsync"
+    exit
+fi
+echo "Command rsync found! :)"
+
+
 # Working directory
 #WDIR=$(pwd)
 WDIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 echo $WDIR
 
-# Create config folder if it not exist
-DIR_CONF="${WDIR}/.config/"
-if [ -d "$DIR_CONF" ]; then
-    # Take action if $DIR_CONF exists. #
-    echo "${DIR_CONF} is present"
-    rm -r ${DIR_CONF}/*
-else
-    echo "Creating ${DIR_CONF}..."
-    mkdir ${WDIR}/.config
-fi
+# Create the folders
+mkdir -p ${WDIR}/files # Equivalente to user home folder
+mkdir -p ${WDIR}/files/.config # Create config folder
+mkdir -p ${WDIR}/files/.config/qtile # Create qtile folder
+mkdir -p ${WDIR}/files/.config/ranger # Create ranger folder
+mkdir -p ${WDIR}/files/.config/kitty # Create kitty folder
+mkdir -p ${WDIR}/files/.config/rofi # Create rofi folder
+mkdir -p ${WDIR}/files/.config/nitrogen # Create nitrogen folder
+mkdir -p ${WDIR}/files/.config/gtk-2.0 # Create gtk-2.0 folder
+mkdir -p ${WDIR}/files/.config/gtk-3.0 # Create gtk-3.0 folder
+mkdir -p ${WDIR}/files/.scripts # Create scrips folder
+mkdir -p ${WDIR}/files/wallpapers # Create wallpapers folder
+DIR_CONF="${WDIR}/files/.config/"
+DIR_FILES="${WDIR}/files/"
 
 # Backup .bashrc file
-cp ${HOME}/.bashrc ${WDIR}
+cp ${HOME}/.bashrc ${DIR_FILES}
 
 # Backup scripts
-rm -r ${WDIR}/.scripts/*
-cp -vur ${HOME}/.scripts ${WDIR}
+rsync -avu --delete "${HOME}/.scripts" "${WDIR}/files/.scripts"
 
 # Backup .xinitrc filr
-cp ${HOME}/.xinitrc ${WDIR}/.xinitrc
+cp ${HOME}/.xinitrc ${WDIR}/files/.xinitrc
 
 # Backup Qtile configs
-cp -vur ${HOME}/.config/qtile ${DIR_CONF}
+rsync -avu --delete "${HOME}/.config/qtile" "${WDIR}/files/.config/qtile"
 
 # Backup ranger configs
-cp -vur ${HOME}/.config/ranger ${DIR_CONF}
+rsync -avu --delete "${HOME}/.config/ranger" "${WDIR}/files/.config/ranger"
 
 # Backup kitty configs
-cp -vur ${HOME}/.config/kitty ${DIR_CONF}
+rsync -avu --delete "${HOME}/.config/kitty" "${WDIR}/files/.config/kitty"
 
 # Backup rofi configs
-cp -vur ${HOME}/.config/rofi ${DIR_CONF}
+rsync -avu --delete "${HOME}/.config/rofi" "${WDIR}/files/.config/rofi"
 
 # Backup wallpapers
-rm -r ${WDIR}/wallpapers/*
-cp -vur ${HOME}/wallpapers ${WDIR}
+rsync -avu --delete "${HOME}/wallpapers " "${WDIR}/files/wallpapers"
 
 # Set nitrogen configs
-#cp -r ${HOME}/.config/nitrogen ${DIR_CONF}
-mkdir -p ${DIR_CONF}/nitrogen
-echo "[xin_-1]" > ${DIR_CONF}/nitrogen/bg-saved.cfg
-echo "file=${HOME}/wallpapers/among-trees.jpg" >> ${DIR_CONF}/nitrogen/bg-saved.cfg
-echo "mode=3" >> ${DIR_CONF}/nitrogen/bg-saved.cfg
-echo "bgcolor=#000000" >> ${DIR_CONF}/nitrogen/bg-saved.cfg
+echo "[xin_-1]" > ${WDIR}/files/.config/nitrogen/bg-saved.cfg
+echo "file=${HOME}/wallpapers/among-trees.jpg" >> ${WDIR}/files/.config/nitrogen/bg-saved.cfg
+echo "mode=3" >> ${WDIR}/files/.config/nitrogen/bg-saved.cfg
+echo "bgcolor=#000000" >> ${WDIR}/files/.config/nitrogen/bg-saved.cfg
 
 # Backup gtk configs
-cp -vur ${HOME}/.config/gtk-2.0 ${DIR_CONF}
-cp -vur ${HOME}/.config/gtk-3.0 ${DIR_CONF}
+rsync -avu --delete "${HOME}/.config/gtk-2.0" "${WDIR}/files/.config/gtk-2.0"
+rsync -avu --delete "${HOME}/.config/gtk-3.0" "${WDIR}/files/.config/gtk-3.0"
+
 
 # Backup picom config
-cp ${HOME}/.config/picom.conf ${DIR_CONF}
+cp ${HOME}/.config/picom.conf ${WDIR}/files/.config

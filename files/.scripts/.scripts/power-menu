@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+SEL=$(echo -en "Lock\0icon\x1fsystem-lock-screen
+Suspend\0icon\x1flist-remove
+Reboot\0icon\x1fsystem-reboot
+Quit\0icon\x1fsystem-log-out
+Shutdown\0icon\x1fsystem-shutdown" | rofi -dmenu -p "Please Select")
+
+[[ -z "$SEL" ]] && exit
+
+case $SEL in
+
+	Lock)
+		echo "1: ${SEL}"
+		lock
+		;;
+	Suspend)
+		echo "2: ${SEL}"
+		systemctl suspend		
+		;;
+	Reboot)
+		echo "3: ${SEL}"
+		reboot
+		;;
+	Quit)
+		echo "4: ${SEL}"
+		loginctl terminate-session ${XDG_SESSION_ID-}
+		;;
+	Shutdown)
+		echo "5: ${SEL}"
+		shutdown now
+		;;
+	*)
+		echo "Error: ${SEL} is not a command!"
+		;;
+esac

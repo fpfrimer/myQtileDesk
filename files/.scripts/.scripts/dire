@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+WDIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+echo $WDIR
