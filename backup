@@ -36,25 +36,25 @@ DIR_FILES="${WDIR}/files/"
 cp ${HOME}/.bashrc ${DIR_FILES}
 
 # Backup scripts
-rsync -avu --delete "${HOME}/.scripts" "${WDIR}/files/.scripts"
+rsync -avu --delete "${HOME}/.scripts" "${WDIR}/files/"
 
 # Backup .xinitrc filr
 cp ${HOME}/.xinitrc ${WDIR}/files/.xinitrc
 
 # Backup Qtile configs
-rsync -avu --delete "${HOME}/.config/qtile" "${WDIR}/files/.config/qtile"
+rsync -avu --delete "${HOME}/.config/qtile" "${WDIR}/files/.config/"
 
 # Backup ranger configs
-rsync -avu --delete "${HOME}/.config/ranger" "${WDIR}/files/.config/ranger"
+rsync -avu --delete "${HOME}/.config/ranger" "${WDIR}/files/.config/"
 
 # Backup kitty configs
-rsync -avu --delete "${HOME}/.config/kitty" "${WDIR}/files/.config/kitty"
+rsync -avu --delete "${HOME}/.config/kitty" "${WDIR}/files/.config/"
 
 # Backup rofi configs
-rsync -avu --delete "${HOME}/.config/rofi" "${WDIR}/files/.config/rofi"
+rsync -avu --delete "${HOME}/.config/rofi" "${WDIR}/files/.config/"
 
 # Backup wallpapers
-rsync -avu --delete "${HOME}/wallpapers " "${WDIR}/files/wallpapers"
+rsync -avu --delete "${HOME}/wallpapers " "${WDIR}/files/"
 
 # Set nitrogen configs
 echo "[xin_-1]" > ${WDIR}/files/.config/nitrogen/bg-saved.cfg
@@ -63,8 +63,8 @@ echo "mode=3" >> ${WDIR}/files/.config/nitrogen/bg-saved.cfg
 echo "bgcolor=#000000" >> ${WDIR}/files/.config/nitrogen/bg-saved.cfg
 
 # Backup gtk configs
-rsync -avu --delete "${HOME}/.config/gtk-2.0" "${WDIR}/files/.config/gtk-2.0"
-rsync -avu --delete "${HOME}/.config/gtk-3.0" "${WDIR}/files/.config/gtk-3.0"
+rsync -avu --delete "${HOME}/.config/gtk-2.0" "${WDIR}/files/.config/"
+rsync -avu --delete "${HOME}/.config/gtk-3.0" "${WDIR}/files/.config/"
 
 
 # Backup picom config
