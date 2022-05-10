@@ -6,5 +6,5 @@ WDIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 # Update system and install needed packages
 sudo pacman -Syu --needed xorg xorg-xinit qtile firefox nitrogen polkit-gnome kitty rofi neofetch alsa-utils volumeicon picom archlinux-wallpaper thunar micro vim nano ttf-font-awesome python-pillow ranger python-psutil papirus-icon-theme network-manager-applet i3lock arandr lxappearance adapta-gtk-theme arc-gtk-theme breeze-gtk materia-gtk-theme gsimplecal otf-hermit otf-ipafont
 
-cp -rT ${WDIR}/files/* ${HOME}/
+cp -rT ${WDIR}/files/ ${HOME}/
 

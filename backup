@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 # Verify is rsync is installed
 if ! command -v rsync &> /dev/null
 then
@@ -54,7 +53,7 @@ rsync -avu --delete "${HOME}/.config/kitty" "${WDIR}/files/.config/"
 rsync -avu --delete "${HOME}/.config/rofi" "${WDIR}/files/.config/"
 
 # Backup wallpapers
-rsync -avu --delete "${HOME}/wallpapers " "${WDIR}/files/"
+rsync -avu --delete "${HOME}/wallpapers" "${WDIR}/files/"
 
 # Set nitrogen configs
 echo "[xin_-1]" > ${WDIR}/files/.config/nitrogen/bg-saved.cfg
